@@ -84,6 +84,9 @@ class MyGraph
 			adjacents = []
 			node_path[distance].each do |start|
 				for adj_node in 1..@graph_order-1
+					# if adj_node > start
+					# 	next
+					# end
 					if isEdge(start, adj_node)
 						adjacents << adj_node
 						if adj_node == target

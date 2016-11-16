@@ -13,9 +13,10 @@ def findIdByFbId(fb_id, friend_list)
 	return nil
 end
 
-
-user_id = 116728622143539
-atoken = "EAAFSJHyfRe8BAE9IVZBSToA1ONUC88WSX6e9JxU9e0C2l6aXnEPgReUKXtfJhqQKM21IFRbQJtNVxBGXvYfNntGHCi0owI7e0YwMZCGlEjhVZAVWXwpLZCTD9eSmDfX1tacSovTUP0sr9p3um8AtHBNS1XGLumbupmNXXjRZABcmFYk600ZCxj"
+puts "User Id:"
+user_id = gets.chomp
+puts "Access Token for use:"
+atoken = gets.chomp
 prefix = "https://graph.facebook.com/v2.8/"
 
 friends = "/friends?access_token=#{atoken}&limit=999"
