@@ -52,7 +52,7 @@ On terminal simply run `ruby main.rb` than chose the input file:
 **Output**
 
 The output gives an ordered by closeness array with node friend and closeness associated to it
-```json
+```ruby
 {"id"=>1, "fb_id"=>"131036157373897", "fb_name"=>"Dave Aladjbedjidgg Bharambeescu"}
 0.25
 {"id"=>4, "fb_id"=>"106867549796766", "fb_name"=>"Elizabeth Aladbjefcegic Liangson"}

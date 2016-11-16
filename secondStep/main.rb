@@ -15,13 +15,13 @@ end
 
 
 user_id = 116728622143539
-
+atoken = "EAAFSJHyfRe8BAE9IVZBSToA1ONUC88WSX6e9JxU9e0C2l6aXnEPgReUKXtfJhqQKM21IFRbQJtNVxBGXvYfNntGHCi0owI7e0YwMZCGlEjhVZAVWXwpLZCTD9eSmDfX1tacSovTUP0sr9p3um8AtHBNS1XGLumbupmNXXjRZABcmFYk600ZCxj"
 prefix = "https://graph.facebook.com/v2.8/"
 
-friends = "/friends?access_token=EAAFSJHyfRe8BAFZBEcafOSaO4PPlIc1kKLfdn3OGThYwuopIdgepsOUk8E9y8XMblqz7lM4hz0nW5BlU6vMfXoT2moe2R5uXydvU3N6a40XBg1oZAmt2uJ4d1OqKiigZBaeCdqYVvLmR3SuSFJvPsBBOKABfcqNt0YNJVnOdYPYwhvSY4Tg&limit=999"
+friends = "/friends?access_token=#{atoken}&limit=999"
 
 
-mutual_friends_query = "?fields=context.fields%28mutual_friends%29&access_token=EAAFSJHyfRe8BAFZBEcafOSaO4PPlIc1kKLfdn3OGThYwuopIdgepsOUk8E9y8XMblqz7lM4hz0nW5BlU6vMfXoT2moe2R5uXydvU3N6a40XBg1oZAmt2uJ4d1OqKiigZBaeCdqYVvLmR3SuSFJvPsBBOKABfcqNt0YNJVnOdYPYwhvSY4Tg&limit=999"
+mutual_friends_query = "?fields=context.fields%28mutual_friends%29&access_token=#{atoken}&limit=999"
 
 friendsUri = URI(prefix + user_id.to_s + friends)
 
