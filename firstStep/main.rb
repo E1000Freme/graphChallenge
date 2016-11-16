@@ -1,6 +1,6 @@
 require_relative 'mygraph.rb'
 
-input = File.readlines('tinyinput')
+input = File.readlines('input')
 
 graph_raw = {}
 higher_node = 0;
@@ -37,9 +37,9 @@ end
 
 afairness = {}
 
-for i in 1..graph_table.size-1
+for i in 1..graph.getOrder-1
 	afairness.store(i, graph.getCloseness(i));
 	haf = afairness.sort_by(&:last).reverse
 end
 
-print haf
+puts haf

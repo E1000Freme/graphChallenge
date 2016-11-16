@@ -115,4 +115,8 @@ class MyGraph
 	def getCloseness(node)
 		return 1.0/getFarness(node)
 	end
+
+	def getOrder()
+		return @graph_order
+	end
 end

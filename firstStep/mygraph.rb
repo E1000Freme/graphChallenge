@@ -116,5 +116,9 @@ class MyGraph
 		return 1.0/getFarness(node)
 	end
 
+	def getOrder()
+		return @graph_order
+	end
+
 
 end

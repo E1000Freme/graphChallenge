@@ -3,47 +3,66 @@ require 'json'
 require_relative 'nodeConstructor'
 require_relative 'mygraph'
 
+def findIdByFbId(fb_id, friend_list)
+	friend_list.each do |friend|
+		if friend["fb_id"].to_i == fb_id.to_i
+			return friend["id"]
+		end
+	end
+	warn "Friend not found"
+	return nil
+end
 
 
 user_id = 116728622143539
 
-user_id2 = 131036157373897
-
 prefix = "https://graph.facebook.com/v2.8/"
 
-request = "/friends?access_token=EAAFSJHyfRe8BADtZCD2yC0XWUfEhL6LoYYAcyMs01oNueOu4iyg4B50AOTGAMZAsPnoCxSe0mqZBRU5eYE1BrohZCQgQqj70hWT6ycr8a0igBegQZAetQiVwhSyX8bjzerrmcj3JjGapYh1BIcdFgbnRFUZC77E1Sdf4oUkjYW7irI3VupZAffA&limit=999"
+friends = "/friends?access_token=EAAFSJHyfRe8BAFZBEcafOSaO4PPlIc1kKLfdn3OGThYwuopIdgepsOUk8E9y8XMblqz7lM4hz0nW5BlU6vMfXoT2moe2R5uXydvU3N6a40XBg1oZAmt2uJ4d1OqKiigZBaeCdqYVvLmR3SuSFJvPsBBOKABfcqNt0YNJVnOdYPYwhvSY4Tg&limit=999"
 
 
-request2 = "?fields=context.fields%28mutual_friends%29&access_token=EAAFSJHyfRe8BADtZCD2yC0XWUfEhL6LoYYAcyMs01oNueOu4iyg4B50AOTGAMZAsPnoCxSe0mqZBRU5eYE1BrohZCQgQqj70hWT6ycr8a0igBegQZAetQiVwhSyX8bjzerrmcj3JjGapYh1BIcdFgbnRFUZC77E1Sdf4oUkjYW7irI3VupZAffA&limit=999"
+mutual_friends_query = "?fields=context.fields%28mutual_friends%29&access_token=EAAFSJHyfRe8BAFZBEcafOSaO4PPlIc1kKLfdn3OGThYwuopIdgepsOUk8E9y8XMblqz7lM4hz0nW5BlU6vMfXoT2moe2R5uXydvU3N6a40XBg1oZAmt2uJ4d1OqKiigZBaeCdqYVvLmR3SuSFJvPsBBOKABfcqNt0YNJVnOdYPYwhvSY4Tg&limit=999"
 
-uri = URI(prefix + user_id.to_s + request)
-uri2 = URI(prefix + user_id2.to_s + request2)
+friendsUri = URI(prefix + user_id.to_s + friends)
 
-jsonresponse = Net::HTTP.get(uri2)
 
-puts jsonresponse
+friendsResp = Net::HTTP.get(friendsUri)
 
-resp = JSON.parse(jsonresponse)["data"]
-
+resp = JSON.parse(friendsResp)["data"]
 nodeContructor = NodeConstructor.new
-nodes = []
+friends = []
 
-nodes<<nodeContructor.newNode(user_id, "Wololo")
+#nodes<<nodeContructor.newNode(user_id, "Wololo")
 
 resp.each do |friend|
-	nodes << nodeContructor.newNode(friend["id"], friend["name"])
+	friends << nodeContructor.newNode(friend["id"], friend["name"])
 end
 
 graph = MyGraph.new(nodeContructor.getNodeCount)
 
-for i in 0..5
-	node1_id = nodes[0]["id"]
-	node2_id = nodes[i]["id"]
-	graph.setEdge(node1_id, node2_id)
+friends.each do |friend|
+	mutualUri = URI(prefix + friend["fb_id"] + mutual_friends_query)
+	mutualResp = JSON.parse(Net::HTTP.get(mutualUri))
+	mutual_friends = mutualResp["context"]["mutual_friends"]["data"]
+	friend_id = findIdByFbId(friend["fb_id"],friends)
+	if !mutual_friends.empty?
+		mutual_friends.each do |mutual|
+			mutual_id = findIdByFbId(mutual['id'], friends)
+			if mutual_id != nil
+				graph.setEdge(friend_id, mutual_id)
+			end
+		end
+	else
+		puts "No Mutual"
+	end
 end
 
-print nodes
 
-puts "_---_"
+hfairness = {}
 
-graph.printAdjTable
+for i in 1..graph.getOrder-1
+	hfairness.store(friends[i], graph.getCloseness(i));
+	haf = hfairness.sort_by(&:last).reverse
+end
+
+puts haf
