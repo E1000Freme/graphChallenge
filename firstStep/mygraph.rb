@@ -74,7 +74,7 @@ class MyGraph
 		end
 		if !node_exists
 			warn "Node #{target} doesn't exist on this graph: dist(#{source},#{target})"
-			return nil
+			return 0
 		end
 
 		distance = 0

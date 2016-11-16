@@ -1,6 +1,21 @@
 require_relative 'mygraph.rb'
 
-input = File.readlines('input')
+inputOpt = nil
+input = nil
+while !input
+	puts "Chose your input file: (0 - Provided input, 1 - smallinput, 2 - tinyinput)"
+	inputOpt = gets.chomp.to_i
+	case inputOpt
+		when 0
+			input = "input"
+		when 1
+			input =  "smallinput"
+		when 2
+			input = "tinyinput"
+	end
+end
+
+input = File.readlines(input)
 
 graph_raw = {}
 higher_node = 0;
