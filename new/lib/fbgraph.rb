@@ -72,6 +72,7 @@ class FBGraph
 		resp = Net::HTTP.get_response(uri)
 
 		return JSON.parse(resp.body)["context"]["mutual_friends"] if resp.is_a?(Net::HTTPSuccess)
+		return false
 
 	end
 

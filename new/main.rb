@@ -2,6 +2,7 @@ require_relative 'lib/mygraph'
 require_relative 'lib/fbgraph'
 require_relative 'lib/nodeConstructor'
 require_relative 'fileController'
+require_relative 'fbController'
 
 inputOpt = nil
 input = nil
@@ -27,32 +28,8 @@ unless input == "fb"
 	puts graph.listByCloseness
 	abort
 else
-	puts "UserId:"
-	userID = gets.chomp
-	puts "Access Token"
-	aToken = gets.chomp
-	FBGraph::setUserId(userID)
-	FBGraph::setUserAccessToken(aToken)
-	friends =  (FBGraph::getFriends)["data"]
 
-	nConstructor = NodeConstructor.new
-	friendNodes = []
-	friends.each do |friend|
-		friendNodes<<nConstructor.newNode(friend)
-	end
-
-	friends.each do |friend|
-		puts FBGraph::getMutualFriends(friend["id"])
-	end
+	FBController::run
 
 	abort
 end
-
-afairness = {}
-
-for i in 1..graph.getOrder-1
-	afairness.store(i, graph.getCloseness(i));
-	haf = afairness.sort_by(&:last).reverse
-end
-
-puts haf
