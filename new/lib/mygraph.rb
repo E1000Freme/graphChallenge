@@ -90,49 +90,6 @@ class MyGraph
 
 		end
 
-
-		# if source == target
-		# 	#warn "Source and target is same node"
-		# 	return 0
-		# end
-
-		# #cheking node exixtence
-		# node_exists = false
-		# for i in 0..@graph_adj_table.size-1
-		# 	if @graph_adj_table[target][i] == 1 || @graph_adj_table[i][target] == 1
-		# 		node_exists = true;
-		# 		break;
-		# 	end
-		# end
-		# if !node_exists
-		# 	warn "Node #{target} doesn't exist on this graph: dist(#{source},#{target})"
-		# 	return 0
-		# end
-
-		# distance = 0
-		# node_path = [[source]]
-		# node_found = false;
-		# while !node_found && distance < @graph_order
-		# 	adjacents = []
-		# 	node_path[distance].each do |start|
-		# 		for adj_node in 1..@graph_order-1
-		# 			if isEdge(start, adj_node)
-		# 				adjacents << adj_node
-		# 				if adj_node == target
-		# 					node_found = true
-		# 				end
-		# 			end
-		# 		end
-		# 	end
-		# 	if !node_found
-		# 		distance += 1
-		# 		node_path<<adjacents
-		# 	end
-		# end
-		# if distance >= @graph_order
-		# 	warn "Path not Found for #{source}, #{target}"
-		# end
-		# return distance+1
 	end
 
 	def node?(node)

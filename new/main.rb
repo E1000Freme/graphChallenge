@@ -26,10 +26,10 @@ unless input == "fb"
 
 	graph = MyGraph.new(graphData[:order], graphData[:adjList])
 	puts graph.listByCloseness
-	abort
+
 else
 
 	FBController::run
 
-	abort
+
 end
